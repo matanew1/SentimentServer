@@ -13,7 +13,8 @@ class SenseService {
 
       python.stdout.on("data", (data) => {
         console.log("Pipe data from python script ...");
-        resolve(data);
+        const dataToSend = data.toString();
+        resolve(dataToSend);
       });
 
       python.on("close", (code) => {
@@ -32,7 +33,11 @@ class SenseService {
     try {
       const fullPath = path.join(__dirname, "..", "scripts/sentiment_decision.py");
       const dataToSend = await this.runGenerateSenseByText(fullPath, text);
-      return dataToSend;
+      if(dataToSend) {
+        const fixedDataForParse = dataToSend.replace(/'/g, '"');
+        const sense = new Sense(JSON.parse(fixedDataForParse));
+        return await sense.save();
+      }
     } catch (error) {
       throw new Error(error);
     }
