@@ -1,9 +1,21 @@
 import SenseService from "../services/SenseService.js";
 import exceptions from "../config/exceptions.js";
-import getMAC from "getmac";
 
+/**
+ *
+ *
+ * @class SenseController
+ */
 class SenseController {
-  static getSense = async (req, res, next) => {
+  /**
+   *
+   *
+   * @static
+   * @param {*} req
+   * @param {*} res
+   * @memberof SenseController
+   */
+  static getSense = async (req, res) => {
     try {
       const text = req.body.text;
       const sense = await SenseService.getSense(text)
