@@ -1,22 +1,21 @@
 import './App.css';
-import Home from './components/pages/Home.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from './components/pages/Login';
-import Profile from './components/pages/Profile'
-import Signup from './components/pages/Signup';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/pages/home/Home';
+import { Container } from '@mui/material';
+import Video from './components/video/Video';
 
 function App() {
   return (
-    <div className="App">
+    <Container>
+      <Video/>
+      <Container className="content-container">
         <BrowserRouter>
           <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </BrowserRouter>
-    </div>
+      </Container>
+    </Container>
   );
 }
 
