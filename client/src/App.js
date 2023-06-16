@@ -7,7 +7,7 @@ import Video from './components/video/Video';
 function App() {
   return (
     <Container>
-      <Video/>
+      <Video />
       <Container className="content-container">
         <BrowserRouter>
           <Routes>

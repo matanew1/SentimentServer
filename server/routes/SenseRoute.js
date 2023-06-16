@@ -8,5 +8,7 @@ const corsOptions = configuration.corsOptions;
 router.options("/sense", cors(corsOptions));
 
 router.post("/sense", cors(corsOptions), SenseController.getSense);
+router.get("/results", cors(corsOptions), SenseController.getResults);
+router.delete("/results/delete/:id", cors(corsOptions), SenseController.removeResult);
 
 export default router;

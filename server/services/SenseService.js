@@ -42,6 +42,22 @@ class SenseService {
       throw new Error(error);
     }
   };
+
+  static getResults = async () => {
+    try {
+      return await Sense.find();
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  static removeResult = async (id) => {
+    try {
+      await Sense.findByIdAndDelete(id);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 
