@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "getmac": "^5.20.0",
+    "mongoose": "^7.2.1",
+    "nodemon": "^2.0.22",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
+  "type": "module",
+  "scripts": {
+    "debug": "node --inspect server.js",
+    "start": "nodemon server.js",
+    "test:user": "mocha ./test/user.test.js",
+    "test:todo": "mocha ./test/todo.test.js"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
