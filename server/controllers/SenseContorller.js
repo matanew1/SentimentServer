@@ -43,6 +43,16 @@ class SenseController {
       res.status(500).json({ error: error });
     }
   };
+
+  static setFavorite = async (req, res) => {
+    try {
+      const id = req.params.id;
+      await SenseService.setFavorite(id);
+      res.status(200).json({ message: 'Updated successfully' })
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  };
 }
 
 export default SenseController;

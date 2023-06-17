@@ -58,6 +58,16 @@ class SenseService {
       throw new Error(error);
     }
   };
+
+  static setFavorite = async (id) => {
+    try {
+      const result = await Sense.findById(id);
+      result.favorite = !result.favorite;
+      await result.save();
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 

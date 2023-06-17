@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import {
   Button,
@@ -16,10 +16,12 @@ import {
   CircularProgress,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { StatusContext } from "../../context/StatusContext";
 
-
-const Content = ({ results, removeResult }) => {
+const Content = ({ results, removeResult, setFavorite }) => {
   const [text, setText] = useState("");
+  const { isRecents } = useContext(StatusContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const baseUrl = "http://localhost:8080";
@@ -31,15 +33,42 @@ const Content = ({ results, removeResult }) => {
 
   const processText = () => {
     setLoading(true);
-    axios.post(`${baseUrl}/sense`,{ text }, { headers: { "Content-Type": "application/json" }})
-    .then((response) => {console.log(response.data); setError("");})
-    .catch((error) => { setError("An error occurred. Please try again."); console.log(error) })
-    .finally(() => { setLoading(false) });
+    axios
+      .post(
+        `${baseUrl}/sense`,
+        { text },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setError("");
+      })
+      .catch((error) => {
+        setError("An error occurred. Please try again.");
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
-    <Container>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+    <Container
+      sx={{
+        padding: "50px",
+        background: "rgba(255, 255, 255, 0.2)",
+        borderRadius: "10px",
+        backdropFilter: "blur(5px)",
+      }}
+    >
+      <Grid
+        container
+        sx={{ justifyContent: "center", alignItems: "center" }}
+        spacing={2}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h6">Enter sentence:</Typography>
+        </Grid>
         <Grid item xs={12}>
           <TextField label="Text" value={text} onChange={handleTextChange} />
         </Grid>
@@ -60,31 +89,68 @@ const Content = ({ results, removeResult }) => {
         )}
       </Grid>
 
-      <Grid container justifyContent="center" spacing={2}>
+      <Grid
+        sx={{
+          padding: "30px",
+          background: "rgba(255, 255, 255, 0.2)",
+          borderRadius: "10px",
+          backdropFilter: "blur(5px)",
+        }}
+        container
+        justifyContent="center"
+        spacing={2}
+        style={{ marginTop: "20px" }}
+      >
         <Grid item xs={12}>
           {results && results.length > 0 && (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Sentence</TableCell>
-                    <TableCell>Sentiment</TableCell>
-                    <TableCell>Delete</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results && results.map((result) => (
-                    <TableRow key={result.sentence}>
-                      <TableCell>{result.sentence}</TableCell>
-                      <TableCell>{result.sentiment}</TableCell>
-                      <TableCell><IconButton aria-label="delete" onClick={() => removeResult(result._id)}>
-                        <DeleteIcon /></IconButton>
-                      </TableCell>
+            <>
+              <Grid item xs={12}>
+                {isRecents ? (
+                  <Typography variant="h6">Recents:</Typography>
+                ) : (
+                  <Typography variant="h6">Favorites:</Typography>
+                )}
+              </Grid>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Sentence</TableCell>
+                      <TableCell>Sentiment</TableCell>
+                      <TableCell>Favorite</TableCell>
+                      <TableCell>Delete</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {results &&
+                      results.map((result) => (
+                        <TableRow key={result.sentence}>
+                          <TableCell>{result.sentence}</TableCell>
+                          <TableCell>{result.sentiment}</TableCell>
+                          <TableCell>
+                            <IconButton
+                              onClick={() => setFavorite(result._id)}
+                            >
+                              <FavoriteIcon
+                                sx={{
+                                  color: result.favorite ? "red" : "",
+                                }}
+                              />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell>
+                            <IconButton
+                              onClick={() => removeResult(result._id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
           )}
         </Grid>
       </Grid>

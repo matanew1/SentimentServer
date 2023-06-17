@@ -3,6 +3,10 @@ import db from './database.js';
 const senseSchema = new db.mongoose.Schema({
   sentence: String,
   sentiment: String,
+  favorite: {
+    type: Boolean,
+    default: false
+  },
   data: {
     neg: Number,
     neu: Number,
@@ -10,6 +14,7 @@ const senseSchema = new db.mongoose.Schema({
     compound: Number
   }
 });
+
 
 const Sense = db.mongoose.model('Sense', senseSchema);
 

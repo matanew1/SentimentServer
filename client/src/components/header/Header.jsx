@@ -18,9 +18,9 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const logoSrc = '/logo.jpeg';
+  const logoSrc = '/SensiText.png';
   const logoAlt = 'LOGO';
-  const headerText = 'FILE CONVERSION';
+  const headerText = 'SensiText';
   const mailto = "mailto:matanew1@gmail.com"
 
   return (
@@ -34,23 +34,23 @@ const Header = () => {
               <Box display="flex" alignItems="center" gap="20px">
                 <img className="logo" src={logoSrc} alt={logoAlt} />
                 {/* Text label */}
-                <Typography variant="h6" component="h1" color="white" fontWeight='bold'>
+                <Typography variant="h6" component="h1" color="inherit" fontWeight='bold'>
                   {headerText}
                 </Typography>
               </Box>
             </Grid>
             {/* Menu items */}
             <Grid item sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Button component={Link} to="/" style={{ fontWeight: 'bold', color: "white" }}>
+              <Button component={Link} to="/" style={{ fontWeight: 'bold', color: "inherit" }}>
                 Home
               </Button>
-              <Button component={Link} to={mailto} style={{ fontWeight: 'bold', color: "white" }}>
+              <Button component={Link} to={mailto} style={{ fontWeight: 'bold', color: "inherit" }}>
                 Contact
               </Button>
             </Grid>
             {/* Hamburger menu */}
             <Grid item sx={{ display: { xs: 'block', md: 'none' } }}>
-              <IconButton style={{ fontWeight: 'bold', color: "white" }} onClick={handleMenuOpen}>
+              <IconButton style={{ fontWeight: 'bold', color: "inherit" }} onClick={handleMenuOpen}>
                 <MenuIcon />
               </IconButton>
               {/* Menu component */}
