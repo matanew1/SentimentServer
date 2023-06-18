@@ -61,6 +61,9 @@ const Content = ({ results, removeResult, setFavorite }) => {
         backdropFilter: "blur(5px)",
       }}
     >
+      <Grid container xs={12} sx={{justifyContent: 'center', alignItems: 'center' }}>
+        <Typography variant="h4">Text To Mood</Typography>
+      </Grid>
       <Grid
         container
         sx={{ justifyContent: "center", alignItems: "center" }}

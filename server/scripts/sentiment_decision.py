@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 def extensive_sentiment_decision(corpus):
@@ -25,10 +26,15 @@ def categorize_sentiment(compound_score):
 
 def main(args):
     results = extensive_sentiment_decision(args)
-    df = pd.DataFrame(results)
-    df.to_json('scripts/sentiment_results.json', orient='records')
-    print(results[0])
+    if len(results) > 0:
+        print(results[0])
+    else:
+        print('No results found')
 
 if __name__ == '__main__':
+    try:
+        nltk.data.find('vader_lexicon')
+    except LookupError:
+        nltk.download('vader_lexicon')
     args = sys.argv[1:]
     main(args)
