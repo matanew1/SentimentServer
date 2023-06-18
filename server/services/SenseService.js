@@ -1,4 +1,5 @@
 import Sense from "../models/senseSchema.js";
+import Summary from "../models/summarySchema.js";
 import exceptions from "../config/exceptions.js";
 import { spawn } from "child_process";
 import path from "path";
@@ -27,6 +28,46 @@ class SenseService {
         reject(error);
       });
     });
+  };
+
+  static runGenerateSummaryByText = (fullPath, text, min, max) => {
+    return new Promise((resolve, reject) => {
+      var python
+      if (min !== undefined && max !== undefined)
+        python = spawn("python", [fullPath, text, min, max]);
+      else
+        python = spawn("python", [fullPath, text]);
+
+      python.stdout.on("data", (data) => {
+        console.log("Pipe data from python script ...");
+        const dataToSend = data.toString();
+        resolve(dataToSend);
+      });
+
+      python.on("close", (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+        reject(new Error(`Python process closed with code ${code}`));
+      });
+
+      python.on("error", (error) => {
+        console.error("Error occurred while spawning Python process:", error);
+        reject(error);
+      });
+    });
+  };
+
+  static getSummary = async (text, min, max) => {
+    try {
+      const fullPath = path.join(__dirname, "..", "scripts/summarize_text.py");
+      const dataToSend = await this.runGenerateSummaryByText(fullPath, text, min, max);
+
+      if(dataToSend) {
+        const summary = new Summary({ text: dataToSend});
+        return await summary.save();
+      }
+    } catch (error) {
+      throw new Error(`Failed to get summary`, error);
+    }
   };
 
   static getSense = async (text) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, AppBar, Toolbar, Typography, Container, Button, Grid, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Button, Grid, IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Header.css';
 
@@ -18,9 +18,8 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const logoSrc = '/SensiText.png';
+  const logoSrc = 'logo.png';
   const logoAlt = 'LOGO';
-  const headerText = 'SensiText';
   const mailto = "mailto:matanew1@gmail.com"
 
   return (
@@ -33,10 +32,6 @@ const Header = () => {
               {/* Logo */}
               <Box display="flex" alignItems="center" gap="20px">
                 <img className="logo" src={logoSrc} alt={logoAlt} />
-                {/* Text label */}
-                <Typography variant="h6" component="h1" color="inherit" fontWeight='bold'>
-                  {headerText}
-                </Typography>
               </Box>
             </Grid>
             {/* Menu items */}

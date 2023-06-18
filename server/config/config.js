@@ -6,7 +6,7 @@ const configuration = {
   port: 8080,
   uri: `mongodb://${
     process.env.DOCKER === "true" ? "database" : "127.0.0.1"
-  }:27017/textAnalysisSenseDB`,
+  }:27017/TextAnalysisDB`,
   json_path: "./tests/utils/",
   corsOptions: {
     origin: `http://localhost:3000`,

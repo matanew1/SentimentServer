@@ -25,6 +25,17 @@ class SenseController {
     }
   };
 
+  static getSummary = async (req, res) => {
+    try {
+      const text = req.body.text;
+      const { min, max } = req.query;
+      const summary = await SenseService.getSummary(text, min, max);
+      res.status(200).send(summary);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  };
+
   static getResults = async (req, res) => {
     try {
       const results = await SenseService.getResults();

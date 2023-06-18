@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import Footer from '../../footer/Footer'
 import Header from '../../header/Header';
-import Content from './Content';
+import TextSense from './TextSense';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 import { StatusContext } from '../../context/StatusContext';
+import { Routes, Route} from 'react-router-dom';
+import Menu from '../menu/Menu'
+import Video from '../../video/Video';
+
+
 
 const Home = () => {
   const { isRecents } = useContext(StatusContext);
@@ -42,13 +47,16 @@ const Home = () => {
   };
 
   return (
-    // <Container>
       <Grid container direction="column" spacing={12}>
+        <Video />
         <Grid item><Header /></Grid>
-        <Grid item><Content results={results} removeResult={removeResult} setFavorite={setFavorite} /></Grid>
+          <Routes>
+            <Route path="/" element={<Grid item><Menu /></Grid>} />
+            <Route path="/sense" element={<Grid item><TextSense results={results} removeResult={removeResult} setFavorite={setFavorite}/></Grid>} />
+            {/* <Route path="/Summary" element={<TextSummary />} /> */}
+          </Routes>
         <Grid item><Footer /></Grid>
       </Grid>
-    // </Container>
   );
 };
 
