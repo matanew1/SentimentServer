@@ -8,6 +8,7 @@ def extensive_sentiment_decision(corpus):
     results = []
     for sentence in corpus:
         scores = sna.polarity_scores(sentence)
+        scores['compound'] = round(scores['compound'], 2)
         sentiment = categorize_sentiment(scores['compound'])
         results.append({'sentence': sentence, 'sentiment': sentiment, 'data': scores})
     return results

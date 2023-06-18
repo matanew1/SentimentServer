@@ -29,6 +29,12 @@ const Footer = () => {
       display="flex"
       bgcolor="transparent"
       justifyContent="center"
+      sx={{
+        padding: "5px",
+        background: "rgba(255, 255, 255, 0.2)",
+        borderRadius: "10px",
+        backdropFilter: "blur(5px)",
+      }}
     >
       {currentUrl !== '/' && (
         <BottomNavigation

@@ -1,5 +1,6 @@
 from transformers import BartTokenizer, BartForConditionalGeneration
 import sys 
+import torch
 
 def summarize_text(text, min_length, max_length):
     # Load pretrained BART model and tokenizer
@@ -7,8 +8,10 @@ def summarize_text(text, min_length, max_length):
     tokenizer = BartTokenizer.from_pretrained(model_name)
     model = BartForConditionalGeneration.from_pretrained(model_name)
 
-    # Tokenize the text
-    inputs = tokenizer([text], max_length=1024, truncation=True, return_tensors='pt')
+    # Move model and inputs to GPU
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+    inputs = tokenizer([text], max_length=1024, truncation=True, return_tensors='pt').to(device)
 
     # Generate the summary
     summary_ids = model.generate(inputs['input_ids'], num_beams=4, length_penalty=2.0, max_length=max_length, min_length=min_length)
@@ -33,4 +36,3 @@ def main(args):
 if __name__ == '__main__':
     args = sys.argv[1:]
     main(args)
-

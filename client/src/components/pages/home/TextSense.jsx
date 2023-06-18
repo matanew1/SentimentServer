@@ -17,8 +17,11 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import RestoreIcon from '@mui/icons-material/Restore';
 import { StatusContext } from "../../context/StatusContext";
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 const TextSense = ({ results, removeResult, setFavorite }) => {
   const [text, setText] = useState("");
@@ -130,10 +133,10 @@ const TextSense = ({ results, removeResult, setFavorite }) => {
             {results && results.length > 0 && (
               <>
                 <Grid item xs={12}>
-                  {isRecents ? (
-                    <Typography variant="h6">Recents:</Typography>
+                  {isRecents ? (                    
+                    <Typography variant="h5"><RestoreIcon sx={{ color: 'black' }} /> Recents: </Typography>
                   ) : (
-                    <Typography variant="h6">Favorites:</Typography>
+                    <Typography variant="h5"><FavoriteIcon sx={{ color: 'red' }} /> Favorites:</Typography>
                   )}
                 </Grid>
                 <TableContainer>
@@ -167,7 +170,7 @@ const TextSense = ({ results, removeResult, setFavorite }) => {
                               <IconButton
                                 onClick={() => removeResult(result._id)}
                               >
-                                <DeleteIcon />
+                                <DeleteIcon  sx={{ color: "black"}}/>
                               </IconButton>
                             </TableCell>
                           </TableRow>

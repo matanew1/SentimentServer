@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, AppBar, Toolbar, Container, Button, Grid, IconButton, Menu, MenuItem } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import './Header.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  Container,
+  Button,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import "./Header.css";
 
 const Header = () => {
   // State for menu anchor element
@@ -18,16 +28,40 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const logoSrc = 'logo.png';
-  const logoAlt = 'LOGO';
-  const mailto = "mailto:matanew1@gmail.com"
+  const logoSrc = "logo.png";
+  const logoAlt = "LOGO";
+  const mailto = "mailto:matanew1@gmail.com";
 
   return (
-    <AppBar color="transparent" elevation={0}>
+    <AppBar
+      sx={{
+        padding: "5px",
+        background: "rgba(255, 255, 255, 0.2)",
+        borderRadius: "10px",
+        backdropFilter: "blur(5px)",
+      }}
+      color="transparent"
+      elevation={0}
+      style={{ position: "fixed", top: 0, left: 0, right: 0 }}
+    >
       <Toolbar>
         {/* Grid container to structure the header */}
-        <Container style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }}>
-          <Grid container  style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }} spacing={1}>
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Grid
+            container
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+            spacing={1}
+          >
             <Grid item>
               {/* Logo */}
               <Box display="flex" alignItems="center" gap="20px">
@@ -35,26 +69,45 @@ const Header = () => {
               </Box>
             </Grid>
             {/* Menu items */}
-            <Grid item sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Button component={Link} to="/" style={{ fontWeight: 'bold', color: "inherit" }}>
+            <Grid item sx={{ display: { xs: "none", md: "block" } }}>
+              <Button
+                component={Link}
+                to="/"
+                style={{ fontWeight: "bold", color: "inherit" }}
+              >
                 Home
               </Button>
-              <Button component={Link} to={mailto} style={{ fontWeight: 'bold', color: "inherit" }}>
+              <Button
+                component={Link}
+                to={mailto}
+                style={{ fontWeight: "bold", color: "inherit" }}
+              >
                 Contact
               </Button>
             </Grid>
             {/* Hamburger menu */}
-            <Grid item sx={{ display: { xs: 'block', md: 'none' } }}>
-              <IconButton style={{ fontWeight: 'bold', color: "inherit" }} onClick={handleMenuOpen}>
+            <Grid item sx={{ display: { xs: "block", md: "none" } }}>
+              <IconButton
+                style={{ fontWeight: "bold", color: "inherit" }}
+                onClick={handleMenuOpen}
+              >
                 <MenuIcon />
               </IconButton>
               {/* Menu component */}
-              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
                 {/* Menu items */}
                 <MenuItem component={Link} to="/" onClick={handleMenuClose}>
                   Home
                 </MenuItem>
-                <MenuItem component={Link} to={mailto} onClick={handleMenuClose}>
+                <MenuItem
+                  component={Link}
+                  to={mailto}
+                  onClick={handleMenuClose}
+                >
                   Contact
                 </MenuItem>
               </Menu>
