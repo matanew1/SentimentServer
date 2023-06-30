@@ -64,8 +64,8 @@ const Header = () => {
           >
             <Grid item>
               {/* Logo */}
-              <Box display="flex" alignItems="center" gap="20px">
-                <img className="logo" src={logoSrc} alt={logoAlt} />
+              <Box display="flex" alignItems="center" >
+                <Link to="/"><img className="logo" src={logoSrc} alt={logoAlt} /></Link>
               </Box>
             </Grid>
             {/* Menu items */}

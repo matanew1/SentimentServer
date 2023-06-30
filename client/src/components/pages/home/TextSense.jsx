@@ -23,7 +23,7 @@ import { StatusContext } from "../../context/StatusContext";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-const TextSense = ({ results, removeResult, setFavorite }) => {
+const TextSense = ({ getResults, results, removeResult, setFavorite }) => {
   const [text, setText] = useState("");
   const { isRecents } = useContext(StatusContext);
   const [error, setError] = useState("");
@@ -46,6 +46,7 @@ const TextSense = ({ results, removeResult, setFavorite }) => {
       .then((response) => {
         console.log(response.data);
         setError("");
+        getResults();
       })
       .catch((error) => {
         setError("An error occurred. Please try again.");
