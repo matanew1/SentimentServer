@@ -1,5 +1,5 @@
-import app from "./app.js";
-import configurations from "./config/config.js";
+const app = require("./app.js");
+const configurations = require("./config/config.js");
 /**
  * Retrieves the port from the configuration and starts the server.
  */

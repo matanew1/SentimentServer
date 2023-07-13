@@ -1,7 +1,7 @@
-import { json, urlencoded } from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import configuration from "../config/config.js";
+const { json, urlencoded } = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const configuration = require("../config/config.js");
 
 /**
  * Middleware functions for request body parsing and CORS handling.
@@ -15,4 +15,4 @@ const middlewares = [
   cookieParser(),
 ];
 
-export default middlewares;
+module.exports = middlewares;

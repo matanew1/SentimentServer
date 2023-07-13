@@ -1,14 +1,13 @@
-import db from './database.js';
+const db = require("./database.js");
 
 const summarySchema = new db.mongoose.Schema({
   text: String,
   favorite: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
+const Summary = db.mongoose.model("Summary", summarySchema);
 
-const Summary = db.mongoose.model('Summary', summarySchema);
-
-export default Summary;
+module.exports = Summary;

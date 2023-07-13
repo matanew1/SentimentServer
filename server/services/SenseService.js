@@ -1,11 +1,11 @@
-import Sense from "../models/senseSchema.js";
-import Summary from "../models/summarySchema.js";
-import exceptions from "../config/exceptions.js";
-import { spawn } from "child_process";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const Sense = require("../models/senseSchema.js");
+const Summary = require("../models/summarySchema.js");
+const exceptions = require("../config/exceptions.js");
+const { spawn } = require("child_process");
+const path = require("path");
+const { fileURLToPath } = require("url");
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 class SenseService {
   static runGenerateSenseByText = (fullPath, text) => {
@@ -13,7 +13,7 @@ class SenseService {
       const python = spawn("python", [fullPath, text]);
 
       python.stdout.on("data", (data) => {
-        console.log("Pipe data from python script ...");
+        console.log("Pipe data = require(python script ...");
         const dataToSend = data.toString();
         resolve(dataToSend);
       });
@@ -32,11 +32,10 @@ class SenseService {
 
   static runGenerateSummaryByText = (fullPath, text, min, max) => {
     return new Promise((resolve, reject) => {
-      var python
+      var python;
       if (min !== undefined && max !== undefined)
         python = spawn("python", [fullPath, text, min, max]);
-      else
-        python = spawn("python", [fullPath, text]);
+      else python = spawn("python", [fullPath, text]);
 
       python.stdout.on("data", (data) => {
         console.log("Pipe data from python script ...");
@@ -59,10 +58,15 @@ class SenseService {
   static getSummary = async (text, min, max) => {
     try {
       const fullPath = path.join(__dirname, "..", "scripts/summarize_text.py");
-      const dataToSend = await this.runGenerateSummaryByText(fullPath, text, min, max);
+      const dataToSend = await this.runGenerateSummaryByText(
+        fullPath,
+        text,
+        min,
+        max
+      );
 
-      if(dataToSend) {
-        const summary = new Summary({ text: dataToSend});
+      if (dataToSend) {
+        const summary = new Summary({ text: dataToSend });
         return await summary.save();
       }
     } catch (error) {
@@ -72,9 +76,13 @@ class SenseService {
 
   static getSense = async (text) => {
     try {
-      const fullPath = path.join(__dirname, "..", "scripts/sentiment_decision.py");
+      const fullPath = path.join(
+        __dirname,
+        "..",
+        "scripts/sentiment_decision.py"
+      );
       const dataToSend = await this.runGenerateSenseByText(fullPath, text);
-      if(dataToSend) {
+      if (dataToSend) {
         const fixedDataForParse = dataToSend.replace(/'/g, '"');
         const sense = new Sense(JSON.parse(fixedDataForParse));
         return await sense.save();
@@ -111,5 +119,4 @@ class SenseService {
   };
 }
 
-
-export default SenseService;
+module.exports = SenseService;

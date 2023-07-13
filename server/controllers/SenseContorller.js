@@ -1,5 +1,5 @@
-import SenseService from "../services/SenseService.js";
-import exceptions from "../config/exceptions.js";
+const SenseService = require("../services/SenseService.js");
+const exceptions = require("../config/exceptions.js");
 
 /**
  *
@@ -18,7 +18,7 @@ class SenseController {
   static getSense = async (req, res) => {
     try {
       const text = req.body.text;
-      const sense = await SenseService.getSense(text)
+      const sense = await SenseService.getSense(text);
       res.status(200).send(sense);
     } catch (error) {
       res.status(500).json({ error: error });
@@ -49,7 +49,7 @@ class SenseController {
     try {
       const id = req.params.id;
       await SenseService.removeResult(id);
-      res.status(200).json({ message: 'Removed successfully'})
+      res.status(200).json({ message: "Removed successfully" });
     } catch (error) {
       res.status(500).json({ error: error });
     }
@@ -59,11 +59,11 @@ class SenseController {
     try {
       const id = req.params.id;
       await SenseService.setFavorite(id);
-      res.status(200).json({ message: 'Updated successfully' })
+      res.status(200).json({ message: "Updated successfully" });
     } catch (error) {
       res.status(500).json({ error: error });
     }
   };
 }
 
-export default SenseController;
+module.exports = SenseController;

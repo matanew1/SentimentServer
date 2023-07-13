@@ -1,5 +1,5 @@
-import mongoose, { connect } from "mongoose";
-import configuration from "../config/config.js";
+const mongoose = require("mongoose");
+const configuration = require("../config/config.js");
 
 /**
  * Establishes a connection to MongoDB using the provided URI.
@@ -8,7 +8,7 @@ import configuration from "../config/config.js";
  */
 async function connectToMongoDB(mongoURI) {
   try {
-    await connect(mongoURI, {
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -25,6 +25,6 @@ const mongoURI = configuration.uri;
 connectToMongoDB(mongoURI);
 
 // Set the strictPopulate option globally for Mongoose
-mongoose.set("strictPopulate", false); 
+mongoose.set("strictPopulate", false);
 
-export default mongoose;
+module.exports = mongoose;
